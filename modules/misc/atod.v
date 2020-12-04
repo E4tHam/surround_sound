@@ -1,29 +1,31 @@
 
 /* analog_to_digital.v */
 
-`timescale 1s/1ms
+
+`include "src/parameters.v"
 
 
 module AtoD
 # (
-    parameter FILE_LENGTH = 64
+    parameter FILE_LENGTH = ( 1 * `SoundFreq )
 )
 (
     output   [15:0] digital
 );
 
     // black box
-    reg  [15:0] BB [FILE_LENGTH-1:0];
-    
+    reg  [15:0] BB [0:FILE_LENGTH-1];
+
     assign digital = BB[i];
 
     integer i = 0;
-    always #0.5 i = (i + 1) % FILE_LENGTH;
+    always #( `SoundPeri )
+        i = (i + 1) % FILE_LENGTH;
 
 
     // initialize BB with instructions
     initial begin
-        $readmemh( "wave.dat", BB );
+        $readmemh( "src/wave.dat", BB );
         i = 0;
     end
 

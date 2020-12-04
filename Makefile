@@ -4,7 +4,7 @@
 
 #TOOL INPUT
 TESTBENCH = tb.v
-EXE = test
+EXE = executable
 DUMP = dump.vcd
 
 ###############################################################################
@@ -15,7 +15,7 @@ SIMULATOR = vvp
 VIEWER = gtkwave
 #TOOL OPTIONS
 COFLAGS = -o
-SFLAGS = 
+SFLAGS =
 SOUTPUT = -lxt		#SIMULATOR OUTPUT TYPE
 #TOOL OUTPUT
 COUTPUT = compiler.out			#COMPILER OUTPUT
@@ -25,7 +25,7 @@ COUTPUT = compiler.out			#COMPILER OUTPUT
 
 
 # #MAKE DIRECTIVES
-all: clean ${EXE}
+all: clean ${EXE} run
 
 ${EXE} : ${TESTBENCH}
 	$(COMPILER) ${COFLAGS} $@ $^

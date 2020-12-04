@@ -1,42 +1,40 @@
 
-/* tb.v */
+/* delay.tb.v */
 
-`include "mem.v"
-`include "analog_to_digital.v"
-`timescale 1s/1ms
+`include "modules/delay.v"
+`include "modules/misc/atod.v"
+`include "src/parameters.v"
+
 
 module testbench () ;
 
 
-/* 1 Hz Clock */
+/* 44.1 kHz Clock */
+
+// 50 MHz Clock
 reg clk = 1;
-always #0.5 clk = ~clk;
+always #( `ClkPeri / 2 ) clk = ~clk;
 
+/* Delay */
 
-/* RAM */
-reg   [2:0] address ; // Address input
-wire [15:0] data    ; // Data I/O
-reg         WE      ; // Write Enable
-reg         OE      ; // Output Enable
+wire      [7:0] theta = 0       ;
+wire      [7:0] distance = 0    ;
+wire     [15:0] signal_in       ;
+wire     [15:0] signal_out      ;
 
-RAM memory (
-    .address( address ) ,
-    .data( data )       ,
-    .WE( WE )           ,
-    .OE( OE )
+Delay DELAY_BOX (
+    .clk( clk )                 ,
+    .theta( theta )             ,
+    .distance( distance )       ,
+    .signal_in( signal_in )     ,
+    .signal_out( signal_out )
 );
-
-reg  [15:0] data_write;
-assign data = ( ~OE & WE )  ? data_write
-            : 'hz
-;
-
 
 /* AtoD */
-wire  [15:0] digital;
 AtoD sound (
-    .digital( digital )
+    .digital( signal_in )
 );
+
 
 /* Test */
 initial begin
@@ -45,8 +43,9 @@ $dumpvars ( );
 //\\ =========================== \\//
 
 
+#( 50 * `SoundPeri )
 
-#10
+
 
 //\\ =========================== \\//
 $finish ;
