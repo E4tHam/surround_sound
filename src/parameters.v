@@ -2,13 +2,12 @@
 /* parameters.v */
 
 
-`define ClkFreq     50000000
-`define ClkPeri     0.00000002
-// `define ClkFreq     1000000
-// `define ClkPeri     0.000001
+// `define ClkFreq     50000000
+`define ClkFreq     1000000
+`define ClkPeri     ( 1.0 / `ClkFreq )
 
 `define SoundFreq   44100
-`define SoundPeri   0.0000226757
+`define SoundPeri   ( 1.0 / `SoundFreq )
 
 
 

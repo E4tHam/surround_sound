@@ -17,8 +17,8 @@ always #( `ClkPeri / 2 ) clk = ~clk;
 
 /* Delay */
 
-wire      [7:0] theta = 0       ;
-wire      [7:0] distance = 0    ;
+reg       [7:0] theta           ;
+reg       [7:0] distance        ;
 wire     [15:0] signal_in       ;
 wire     [15:0] signal_out      ;
 
@@ -42,6 +42,8 @@ $dumpfile ( "dump.vcd" ) ;
 $dumpvars ( );
 //\\ =========================== \\//
 
+theta = 'H00;
+distance = 'D7;
 
 #( 50 * `SoundPeri )
 

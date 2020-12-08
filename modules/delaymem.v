@@ -36,7 +36,7 @@ module RAM
     // data initialized to all 1s
     integer i;
     initial for ( i = 0; i < DEPTH; i = i+1 ) begin
-        MEM[i] <= { DATA_WIDTH{1'b1} } ;
+        // MEM[i] <= { DATA_WIDTH{1'b1} } ;
         // Make MEM values visible in GTKWave
         $dumpvars( 1, MEM[i] );
     end
