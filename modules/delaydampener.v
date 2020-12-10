@@ -4,11 +4,13 @@
 
 module Dampener (
     input     [7:0] theta       ,
+    input     [7:0] distance    ,
     output    [7:0] damp
 );
-    reg     [7:0] temp;
-    assign damp = temp;
+    /* https://www.desmos.com/calculator/ivhkp9vjnw */
+    integer at;
+    assign damp = at;
     always @ *
-        temp = theta;
+        at = 262.781 - ( 738152.288 / ( distance + 53 )**2 );
 
 endmodule

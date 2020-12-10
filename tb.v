@@ -37,16 +37,21 @@ AtoD sound (
 
 
 /* Test */
+integer i;
 initial begin
 $dumpfile ( "dump.vcd" ) ;
 $dumpvars ( );
 //\\ =========================== \\//
 
 theta = 'H00;
-distance = 'D7;
+distance = 'D0;
 
-#( 50 * `SoundPeri )
+// #( 50 * `SoundPeri )
 
+for ( i = 0; i < 255; i++ ) begin
+    distance += 1;
+    #( `SoundPeri );
+end
 
 
 //\\ =========================== \\//

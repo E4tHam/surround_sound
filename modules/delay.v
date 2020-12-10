@@ -26,7 +26,8 @@ module Delay (
     /* Dampener */
     wire  [7:0] damp    ;
     Dampener damp_value (
-        .theta( theta ) ,
+        .theta( theta )         ,
+        .distance( distance )   ,
         .damp( damp )
     );
 
